@@ -1,0 +1,7 @@
+logging:
+  level:
+    org:
+      springframework: DEBUG
+app:
+  msg:
+    welcome: "Welcome to the DEV profile"

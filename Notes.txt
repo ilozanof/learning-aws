@@ -1,0 +1,40 @@
+April 24, 2023:
+
+Steps followed in AWS to deploy this App:
+1. Define the VPC and Subnets (2 subnets are needed in order to use AWS RDS):
+
+    A VPC: learning-aws-vpc: with 2 CIDRs:
+            10.0.0.0/24
+            11.0.0.0/24
+
+    2 Subnets:
+        learning-aws-subnet:
+            CIDR: 10.0.0.0/24
+            availability Zone: use1-az4
+        learning-aws-subnet-2:
+            CIDR: 11.0.0.0/24
+            availability Zone: use1-az5
+
+   An Internet Gateway: learning-aws-gateway
+   The Route Table of the 2 Subnets needs an entry pointing to the *Gateway*:
+     Destination: 0.0.0.0/0
+     Target: [gateway]
+
+   A Security Group: with rules to allow traffic form ANYWHERE for TCP for the ports 80, 8080 and 3306 (mySql)
+
+2. Crate a MySQL DB, using the VPC above
+
+2. Create an APP in AWS ElasticBeanstalk, and 2 environments, for DEv and for PROD:
+
+    On each Environment, we need to set this Environment Property, to avoid a 502 nginx error:
+    PORT: 8080
+    SPRING_PROFILES_ACTIVE: "dev" or "prod"
+
+    In the PROD environment, we also need the following properties, which are referenced in the SpringBoot App:
+    RDS_DB_NAME:
+    RDS_HOSTNAME:
+    RDS_PASSWORD:
+    RDS_PORT:
+    RDS_USERNAME:
+    We take the values form the RDS config.
+

@@ -13,9 +13,16 @@ repositories {
 }
 
 dependencies {
-	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+	// DEV: Embedded DB:
+	implementation 'com.h2database:h2'
+	// PROD: MySQL
+	implementation 'com.mysql:mysql-connector-j'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	// lombok:
 	compileOnly 'org.projectlombok:lombok'
